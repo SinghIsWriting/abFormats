@@ -1,5 +1,5 @@
-from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.views.decorators.http import require_http_methods
 
 def index(request):
         return render(request,'index.html')
@@ -7,7 +7,7 @@ def index(request):
 def contact(request):
         return render(request, 'contact.html')
 
-
+@require_http_methods(["POST"])
 def analyze(request):
 	try:
 		djtext = request.POST.get('text','default')
@@ -42,7 +42,7 @@ def analyze(request):
 		if extraspaceremover == "on":
 			analyzed = ""
 			for index, char in enumerate(djtext):
-				if not(djtext[index] == " " and djtext[index+1] == " "):
+				if not(djtext[index] == " " and (index<len(djtext)-1 and djtext[index+1] == " ")):
 					analyzed = analyzed + char
 				else:
 					pass

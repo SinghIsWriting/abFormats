@@ -44,7 +44,7 @@
 
 <div class="container">
 
-  <form action='/analyze/' method='post'>{% csrf_token %}
+  <form action='{% url "analyze" %}' method='post'>{% csrf_token %}
 
 
   <div class="form-group">
